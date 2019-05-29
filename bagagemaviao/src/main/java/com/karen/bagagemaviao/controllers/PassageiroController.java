@@ -24,7 +24,15 @@ public class PassageiroController {
 	
 	@RequestMapping(value = "/cadastrarPassageiro", method = RequestMethod.POST)
 	public String form(Passageiro passageiro) {
-		if 
+		if(passageiro.getPesomala() > 10 || passageiro.getAlturamala() > 55 
+				|| passageiro.getLarguramala() > 35 || passageiro.getComprimentomala() > 25) {
+			String tipo = passageiro.getNumvoo();
+			if (tipo.equals("nacional")) {
+				passageiro.setValorbagagem(95);
+			}else {
+				passageiro.setValorbagagem(230);
+			}
+		}
 		passageiroRepository.save(passageiro);
 		return "redirect:/cadastrarPassageiro";
 	}

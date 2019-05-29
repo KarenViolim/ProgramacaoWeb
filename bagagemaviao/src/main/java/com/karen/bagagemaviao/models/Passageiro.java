@@ -77,4 +77,7 @@ public class Passageiro implements Serializable{
 	public void setValorbagagem(double valorbagagem) {
 		this.valorbagagem = valorbagagem;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }
