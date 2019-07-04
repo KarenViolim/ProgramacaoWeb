@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Reservas</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet"></link>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>Lista de Reservas</strong>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive">
+				<form th:action="@{/buscarReserva}" method="POST"
+					id="buscarPorDestino">
+					<label class="col-md-2 control-label">Pesquisar Destino</label>
+					<div class="col-md-8">
+						<input name="destino" class="form-control input-md" type="text"
+							id="destino">
+					</div>
+					<div class="col-md-2">
+						<button type="submit"
+							class="form-control input-md btn btn-primary" value="Buscar"
+							id="btnBuscar">Buscar</button>
+					</div>
+				</form>
+				<table
+					class="table table-sm table-striped table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Número Passaporte</th>
+							<th>Origem</th>
+							<th>Destino</th>
+							<th>Data Reserva</th>
+							<th>Hora Saída</th>
+							<th>Empresa</th>
+							<th>Valor Reserva</th>
+							<th>Observação</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="reserva : ${reserva}">
+							<td th:text="${reserva.id}"></td>
+							<td th:text="${reserva.passageiro.numeroPassaporte}"></td>
+							<td th:text="${reserva.origem}"></td>
+							<td th:text="${reserva.destino}"></td>
+							<td th:text="${reserva.dataReserva}"></td>
+							<td th:text="${reserva.horaSaida}"></td>
+							<td th:text="${reserva.empresa}"></td>
+							<td th:text="${reserva.valorReserva}"></td>
+							<td th:text="${reserva.observacao}"></td>
+							<td>
+								<div class="btn-group pull-right">
+									<a class="btn btn-sm btn-primary"
+										th:href="@{/editarReserva/{id}(id=${reserva.id})}">Editar</a>
+									<a class="delete btn btn-sm btn-danger"
+										th:href="@{/removerReserva/{id}(id=${reserva.id})}">Excluir</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="panel-footer">
+			<a class="btn btn-sm btn-success" th:href="@{/adicionarReserva}">Adicionar</a>
+		</div>
+	</div>
+</body>
+</html>

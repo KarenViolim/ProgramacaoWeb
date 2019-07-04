@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Cadastro de Reservas</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>Cadastro de Reservas</strong>
+		</div>
+		<div class="panel-body">
+			<form class="form-horizontal" th:object="${reserva}" th:action="@{/salvarReserva}" method="POST" style="margin: 10px">
+				<div class="form-group">
+ 					<fieldset>
+						<div class="form-group row">
+							<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+								<div th:each="detailedError : ${#fields.detailedErrors()}">
+									<span th:text="${detailedError.message}"></span>
+								</div>
+							</div>
+						</div> 					
+						<div class="form-group row">
+						    <div class="col-md-1">
+						        <input type="hidden" class="form-control input-sm" id="id" th:field="*{id}" readOnly="readonly"/>
+						    </div>
+						 </div>
+						<div class="form-group row">
+							<div class="col-md-4">
+								<label>Número do Passaporte</label> 
+								<select th:field="*{passageiro}" class="form-control">
+									<option value="0">Selecione um Passaporte</option>
+									<option th:each="pass: ${passageiro}"
+										th:value="${pass.id}" th:text="${pass.numeroPassaporte}"></option>
+								</select>
+							</div>
+						</div>	
+						<div class="form-group row">                                                          
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('origem')}? 'has-error'">
+							    <label>Origem</label>
+							    <input type="text" class="form-control input-sm" th:field="*{origem}" autofocus="autofocus" placeholder="Informe a origem" maxlength="50"/>
+							</div>
+						</div>
+						<div class="form-group row">                                                          
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('destino')}? 'has-error'">
+							    <label>Destino</label>
+							    <input type="text" class="form-control input-sm" th:field="*{destino}" autofocus="autofocus" placeholder="Informe o destino" maxlength="50"/>
+							</div>
+						</div>	
+						<div class="form-group row">                                                          
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('dataReserva')}? 'has-error'">
+							    <label>Data de Reserva</label>
+							    <input type="date" class="form-control input-sm" th:field="*{dataReserva}" autofocus="autofocus" placeholder=""/>
+							</div>
+						</div>
+						<div class="form-group row">                                                          
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('horaSaida')}? 'has-error'">
+							    <label>Hora de Saída</label>
+							    <input type="time" class="form-control input-sm" th:field="*{horaSaida}" autofocus="autofocus" placeholder=""/>
+							</div>
+						</div>	
+						<div class="form-group row">                                                          
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('empresa')}? 'has-error'">
+							    <label>Empresa</label>
+							    <input type="text" class="form-control input-sm" th:field="*{empresa}" autofocus="autofocus" placeholder="" maxlength="50"/>
+							</div>
+						</div>
+						<div class="form-group row">                                                          
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('valorReserva')}? 'has-error'">
+							    <label>Valor da Reserva</label>
+							    <input type="number" class="form-control input-sm" th:field="*{valorReserva}" autofocus="autofocus" placeholder="Valor Reserva"/>
+							</div>
+						</div>		
+						<div class="form-group row">                                                          
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('observacao')}? 'has-error'">
+							    <label>Observação</label>
+							    <input type="text" class="form-control input-sm" th:field="*{observacao}" autofocus="autofocus" placeholder=""/>
+							</div>
+						</div>		
+					</fieldset>
+				</div>
+				<div class="form-group row">
+					<button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+					<a th:href="@{/listarReserva}" class="btn btn-sm btn-default">Cancelar</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

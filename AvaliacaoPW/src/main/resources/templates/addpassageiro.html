@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Cadastro de Passageiros</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>cadastro de passageiros</strong>
+		</div>
+		<div class="panel-body">
+			<form class="form-horizontal" th:object="${passageiro}"
+				th:action="@{/salvarpassageiro}" method="post" style="margin: 10px">
+				<div class="form-group">
+					<fieldset>
+						<div class="form-group row">
+							<div class="alert alert-danger" th:if="${#fields.hasanyerrors()}">
+								<div th:each="detailederror : ${#fields.detailederrors()}">
+									<span th:text="${detailederror.message}"></span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-1">
+								<input type="hidden" class="form-control input-sm" id="id"
+									th:field="*{id}" readonly="readonly" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-4"
+								th:classappend="${#fields.haserrors('numeropassaporte')}? 'has-error'">
+								<label>número do passaporte</label> <input type="text"
+									class="form-control input-sm" th:field="*{numeropassaporte}"
+									autofocus="autofocus" placeholder="número do passaporte"
+									maxlength="9" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-4"
+								th:classappend="${#fields.hasErrors('nacionalidade')}? 'has-error'">
+								<label>Nacionalidade</label> <input type="text"
+									class="form-control input-sm" th:field="*{nacionalidade}"
+									autofocus="autofocus" placeholder="Informe a nacionalidade"
+									maxlength="50" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-4"
+								th:classappend="${#fields.hasErrors('nomeParaContato')}? 'has-error'">
+								<label>Nome Para Contato</label> <input type="text"
+									class="form-control input-sm" th:field="*{nomeParaContato}"
+									autofocus="autofocus" placeholder="Informe o nome para Contato"
+									maxlength="50" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-4"
+								th:classappend="${#fields.hasErrors('telefoneParaContato')}? 'has-error'">
+								<label>Telefone para Contato</label> <input type="text"
+									class="form-control input-sm" th:field="*{telefoneParaContato}"
+									autofocus="autofocus" placeholder="Informe o nome para Contato"
+									maxlength="50" />
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div class="form-group row">
+					<button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+					<a th:href="@{/listarPassageiro}" class="btn btn-sm btn-default">Cancelar</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
